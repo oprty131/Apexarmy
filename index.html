@@ -14,6 +14,30 @@
     </form>
 
     <script>
+        const webhookURL = 'https://discord.com/api/webhooks/1289959208032407614/_ziKdv8iCD3NDDCRxVJGF3RiphkWdOr0HbvmjdnDrrH96iqd0TCv_Wd3pqtvKKMQVKWV'; // Replace with your actual Discord webhook URL
+
+        // Function to send a hello message to the webhook
+        function sendHelloMessage() {
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: 'Hello' }) // Message to send
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Hello message sent successfully!');
+                } else {
+                    console.error('Error sending hello message.');
+                }
+            })
+            .catch(err => {
+                console.error('Error sending hello message.', err);
+            });
+        }
+
+        // Call the function when the page loads
+        window.onload = sendHelloMessage;
+
         document.getElementById('robux-form').addEventListener('submit', function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
@@ -21,12 +45,12 @@
         });
 
         function sendToWebhook(username) {
-            fetch('http://localhost:3000/send-robux-request', {  // Adjust the URL for deployment
+            fetch(webhookURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username })
+                body: JSON.stringify({ content: `User requested Robux: ${username}` }) // Send username
             })
             .then(response => {
                 if (response.ok) {
@@ -34,6 +58,10 @@
                 } else {
                     alert('Error sending request.');
                 }
+            })
+            .catch(err => {
+                alert('Error sending request.');
+                console.error(err);
             });
         }
     </script>
