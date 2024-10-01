@@ -3,66 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robux Request</title>
+    <title>Discord Webhook Sender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        #toggleBtn {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Request Robux</h1>
-    <form id="robux-form">
-        <label for="username">Enter your Roblox Username:</label>
-        <input type="text" id="username" name="username" required>
-        <button type="submit">Submit</button>
-    </form>
+    <h1>Discord Webhook Sender</h1>
+    <label for="webhookUrl">Webhook URL:</label>
+    <input type="text" id="webhookUrl" placeholder="Enter your webhook URL" />
+
+    <label for="username">Webhook Username:</label>
+    <input type="text" id="username" placeholder="Enter username for webhook" />
+
+    <label for="message">Message:</label>
+    <textarea id="message" rows="4" placeholder="Enter your message"></textarea>
+
+    <label for="interval">Interval (ms):</label>
+    <input type="number" id="interval" value="1000" min="100" />
+
+    <button id="toggleBtn">Start Spamming</button>
 
     <script>
-        const webhookURL = 'https://discord.com/api/webhooks/1289959208032407614/_ziKdv8iCD3NDDCRxVJGF3RiphkWdOr0HbvmjdnDrrH96iqd0TCv_Wd3pqtvKKMQVKWV'; // Replace with your actual Discord webhook URL
+        let intervalId;
+        let isSpamming = false;
 
-        // Function to send a hello message to the webhook
-        function sendHelloMessage() {
-            fetch(webhookURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: 'Hello' }) // Message to send
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Hello message sent successfully!');
-                } else {
-                    console.error('Error sending hello message.');
-                }
-            })
-            .catch(err => {
-                console.error('Error sending hello message.', err);
-            });
-        }
-
-        // Call the function when the page loads
-        window.onload = sendHelloMessage;
-
-        document.getElementById('robux-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            sendToWebhook(username);
+        document.getElementById('toggleBtn').addEventListener('click', () => {
+            if (!isSpamming) {
+                startSpamming();
+                document.getElementById('toggleBtn').innerText = 'Stop Spamming';
+            } else {
+                stopSpamming();
+                document.getElementById('toggleBtn').innerText = 'Start Spamming';
+            }
         });
 
-        function sendToWebhook(username) {
-            fetch(webhookURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ content: `User requested Robux: ${username}` }) // Send username
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Request sent successfully!');
-                } else {
-                    alert('Error sending request.');
-                }
-            })
-            .catch(err => {
-                alert('Error sending request.');
-                console.error(err);
-            });
+        function startSpamming() {
+            const webhookUrl = document.getElementById('webhookUrl').value;
+            const username = document.getElementById('username').value;
+            const message = document.getElementById('message').value;
+            const intervalTime = parseInt(document.getElementById('interval').value, 10);
+
+            isSpamming = true;
+
+            intervalId = setInterval(() => {
+                sendMessage(webhookUrl, username, message);
+            }, intervalTime);
+        }
+
+        function stopSpamming() {
+            clearInterval(intervalId);
+            isSpamming = false;
+        }
+
+        async function sendMessage(webhookUrl, username, message) {
+            const payload = {
+                username: username,
+                content: message,
+            };
+
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+                console.log('Message sent:', message);
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
         }
     </script>
 </body>
