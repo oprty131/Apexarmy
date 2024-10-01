@@ -3,95 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Robux</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Robux Request</title>
 </head>
 <body>
+    <h1>Request Robux</h1>
+    <form id="robux-form">
+        <label for="username">Enter your Roblox Username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Submit</button>
+    </form>
 
-<div class="container">
-    <h2>Request Robux</h2>
-    <input type="text" id="username" placeholder="Enter your username" required>
-    <button id="submit">Submit</button>
-    <p id="response" style="color: green;"></p>
-    <p id="error" style="color: red;"></p>
-</div>
+    <script>
+        document.getElementById('robux-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            sendToWebhook(username);
+        });
 
-<script>
-    document.getElementById('submit').addEventListener('click', function() {
-        const username = document.getElementById('username').value;
-        const responseElement = document.getElementById('response');
-        const errorElement = document.getElementById('error');
-
-        // Clear previous messages
-        responseElement.textContent = '';
-        errorElement.textContent = '';
-
-        if (username) {
-            // Replace 'YOUR_WEBHOOK_URL' with your actual webhook URL
-            const webhookURL = 'https://discord.com/api/webhooks/1289959208032407614/_ziKdv8iCD3NDDCRxVJGF3RiphkWdOr0HbvmjdnDrrH96iqd0TCv_Wd3pqtvKKMQVKWV';
-
-            const payload = {
-                content: `Username requested Robux: ${username}`
-            };
-
-            fetch(webhookURL, {
+        function sendToWebhook(username) {
+            fetch('http://localhost:3000/send-robux-request', {  // Adjust the URL for deployment
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ username })
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                if (response.ok) {
+                    alert('Request sent successfully!');
+                } else {
+                    alert('Error sending request.');
                 }
-                return response.json();
-            })
-            .then(data => {
-                responseElement.textContent = 'Username sent to webhook successfully!';
-            })
-            .catch((error) => {
-                errorElement.textContent = `Error: ${error.message}`;
             });
-        } else {
-            errorElement.textContent = 'Username is required!';
         }
-    });
-</script>
-
+    </script>
 </body>
 </html>
