@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,44 +16,50 @@
             justify-content: flex-start; /* Align items to the top */
             min-height: 100vh; /* Ensure full viewport height */
             overflow-x: hidden; /* Prevent horizontal scroll */
-            background: linear-gradient(135deg, rgba(255, 68, 0, 0.8), rgba(255, 215, 0, 0.8));
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s ease infinite;
+            background-color: #000; /* Set black background */
             color: white;
             text-align: center;
-            position: relative; /* For shake effect */
+            position: relative; /* For pulsing effect */
+            animation: pulseBackground 10s infinite alternate; /* Pulsing animation */
         }
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+
+        @keyframes pulseBackground {
+            0% {
+                background-color: #000; /* Black */
+            }
+            50% {
+                background-color: #333; /* Dark gray */
+            }
+            100% {
+                background-color: #000; /* Black */
+            }
         }
-        @keyframes shake {
-            0% { transform: translate(0); }
-            25% { transform: translate(-5px, 0); }
-            50% { transform: translate(5px, 0); }
-            75% { transform: translate(-5px, 0); }
-            100% { transform: translate(0); }
-        }
+
         h1 {
             margin: 20px 0 10px;
-            font-size: 36px;
+            font-size: 48px; /* Increased font size */
             font-weight: bold;
+            background: linear-gradient(90deg, #ff0057, #ffcc00); /* Gradient text */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             opacity: 0; /* Start invisible */
             transform: translateY(-20px); /* Start slightly above */
             animation: fadeInUp 1s forwards; /* Fade and move up */
             animation-delay: 0.5s; /* Delay for effect */
         }
+        
         .description {
-            margin: 10px 0 20px;
-            font-size: 20px; /* Increased font size */
+            margin: 10px 20px 20px; /* Added padding */
+            font-size: 22px; /* Increased font size */
             font-weight: 300; /* Lighter font weight for better readability */
             max-width: 600px; /* Limit width for readability */
+            line-height: 1.5; /* Improved line spacing */
             opacity: 0; /* Start invisible */
             transform: translateY(-20px); /* Start slightly above */
             animation: fadeInUp 1s forwards; /* Fade and move up */
             animation-delay: 1s; /* Delay for effect */
         }
+
         img {
             max-width: 90%;
             height: auto;
@@ -63,18 +69,21 @@
             animation: fadeInScale 1s forwards; /* Fade and scale */
             animation-delay: 1.5s; /* Delay for effect */
         }
+
         @keyframes fadeInUp {
             to {
                 opacity: 1; /* Fully visible */
                 transform: translateY(0); /* Original position */
             }
         }
+
         @keyframes fadeInScale {
             to {
                 opacity: 1; /* Fully visible */
                 transform: scale(1); /* Original size */
             }
         }
+
         .discord-button {
             display: flex;
             align-items: center;
@@ -89,15 +98,17 @@
             margin-top: 20px;
             transition: background-color 0.3s ease; /* Smooth transition */
         }
+
         .discord-button i {
             margin-right: 10px;
         }
+
         .discord-button:hover {
             background-color: #5b6eae; /* Change color on hover */
         }
     </style>
 </head>
-<body onload="startShake()">
+<body>
     <h1>Apex Army</h1>
     <p class="description">
         Apex Army is a very sigma army filled with pros. If you join this server and follow all the rules, you will be a true sigma. Also, enjoy lots of giveaways in this server!
@@ -106,14 +117,5 @@
     <a href="https://discord.gg/dfmCh6pQ" class="discord-button">
         <i class="fab fa-discord"></i> Join Discord Server
     </a>
-
-    <script>
-        function startShake() {
-            document.body.style.animation = 'shake 0.5s ease forwards'; /* Start shake effect */
-            setTimeout(() => {
-                document.body.style.animation = ''; /* Remove animation after it ends */
-            }, 500);
-        }
-    </script>
 </body>
 </html>
