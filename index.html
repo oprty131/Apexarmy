@@ -13,22 +13,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+            justify-content: flex-start; /* Align items to the top */
+            min-height: 100vh; /* Ensure full viewport height */
+            overflow-x: hidden; /* Prevent horizontal scroll */
             background: linear-gradient(135deg, rgba(255, 68, 0, 0.8), rgba(255, 215, 0, 0.8));
             background-size: 400% 400%;
             animation: gradientAnimation 10s ease infinite;
             color: white;
             text-align: center;
+            position: relative; /* For shake effect */
         }
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        @keyframes shake {
+            0% { transform: translate(0); }
+            25% { transform: translate(-5px, 0); }
+            50% { transform: translate(5px, 0); }
+            75% { transform: translate(-5px, 0); }
+            100% { transform: translate(0); }
+        }
         h1 {
-            margin-bottom: 10px;
+            margin: 20px 0 10px;
+            font-size: 36px;
+            font-weight: bold;
             opacity: 0; /* Start invisible */
             transform: translateY(-20px); /* Start slightly above */
             animation: fadeInUp 1s forwards; /* Fade and move up */
@@ -36,7 +46,9 @@
         }
         .description {
             margin: 10px 0 20px;
-            font-size: 18px;
+            font-size: 20px; /* Increased font size */
+            font-weight: 300; /* Lighter font weight for better readability */
+            max-width: 600px; /* Limit width for readability */
             opacity: 0; /* Start invisible */
             transform: translateY(-20px); /* Start slightly above */
             animation: fadeInUp 1s forwards; /* Fade and move up */
@@ -85,7 +97,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="startShake()">
     <h1>Apex Army</h1>
     <p class="description">
         Apex Army is a very sigma army filled with pros. If you join this server and follow all the rules, you will be a true sigma. Also, enjoy lots of giveaways in this server!
@@ -94,5 +106,14 @@
     <a href="https://discord.gg/dfmCh6pQ" class="discord-button">
         <i class="fab fa-discord"></i> Join Discord Server
     </a>
+
+    <script>
+        function startShake() {
+            document.body.style.animation = 'shake 0.5s ease forwards'; /* Start shake effect */
+            setTimeout(() => {
+                document.body.style.animation = ''; /* Remove animation after it ends */
+            }, 500);
+        }
+    </script>
 </body>
 </html>
