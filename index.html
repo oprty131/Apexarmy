@@ -3,90 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Webhook Sender</title>
+    <title>Apex Army</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            text-align: center;
         }
-        input, textarea {
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
+        h1 {
+            margin-bottom: 20px;
         }
-        #toggleBtn {
-            padding: 10px;
+        img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .discord-button {
+            display: flex;
+            align-items: center;
+            background-color: #7289da;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
             cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .discord-button i {
+            margin-right: 10px;
+        }
+        .discord-button:hover {
+            background-color: #5b6eae;
         }
     </style>
 </head>
 <body>
-    <h1>Discord Webhook Sender</h1>
-    <label for="webhookUrl">Webhook URL:</label>
-    <input type="text" id="webhookUrl" placeholder="Enter your webhook URL" />
-
-    <label for="username">Webhook Username:</label>
-    <input type="text" id="username" placeholder="Enter username for webhook" />
-
-    <label for="message">Message:</label>
-    <textarea id="message" rows="4" placeholder="Enter your message"></textarea>
-
-    <label for="interval">Interval (ms):</label>
-    <input type="number" id="interval" value="1000" min="100" />
-
-    <button id="toggleBtn">Start Spamming</button>
-
-    <script>
-        let intervalId;
-        let isSpamming = false;
-
-        document.getElementById('toggleBtn').addEventListener('click', () => {
-            if (!isSpamming) {
-                startSpamming();
-                document.getElementById('toggleBtn').innerText = 'Stop Spamming';
-            } else {
-                stopSpamming();
-                document.getElementById('toggleBtn').innerText = 'Start Spamming';
-            }
-        });
-
-        function startSpamming() {
-            const webhookUrl = document.getElementById('webhookUrl').value;
-            const username = document.getElementById('username').value;
-            const message = document.getElementById('message').value;
-            const intervalTime = parseInt(document.getElementById('interval').value, 10);
-
-            isSpamming = true;
-
-            intervalId = setInterval(() => {
-                sendMessage(webhookUrl, username, message);
-            }, intervalTime);
-        }
-
-        function stopSpamming() {
-            clearInterval(intervalId);
-            isSpamming = false;
-        }
-
-        async function sendMessage(webhookUrl, username, message) {
-            const payload = {
-                username: username,
-                content: message,
-            };
-
-            try {
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload),
-                });
-                console.log('Message sent:', message);
-            } catch (error) {
-                console.error('Error sending message:', error);
-            }
-        }
-    </script>
+    <h1>Apex Army</h1>
+    <img src="https://cdn.discordapp.com/attachments/1290566730602647593/1290792393616134174/artworks-H7m7uBZoUUHRmDuw-GByeBw-t1080x1080.jpg?ex=66fdbf98&is=66fc6e18&hm=c8f4f68284b48f739308d79e4effe36f54564e5cf73854815a1c2374f757dd16" alt="Apex Army">
+    <a href="https://discord.gg/dfmCh6pQ" class="discord-button">
+        <i class="fab fa-discord"></i> Join Discord Server
+    </a>
 </body>
 </html>
