@@ -15,17 +15,32 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #282c34;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 68, 0, 0.8), rgba(255, 215, 0, 0.8));
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
             color: white;
             text-align: center;
-            overflow: hidden;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             opacity: 0; /* Start invisible */
             transform: translateY(-20px); /* Start slightly above */
             animation: fadeInUp 1s forwards; /* Fade and move up */
             animation-delay: 0.5s; /* Delay for effect */
+        }
+        .description {
+            margin: 10px 0 20px;
+            font-size: 18px;
+            opacity: 0; /* Start invisible */
+            transform: translateY(-20px); /* Start slightly above */
+            animation: fadeInUp 1s forwards; /* Fade and move up */
+            animation-delay: 1s; /* Delay for effect */
         }
         img {
             max-width: 90%;
@@ -34,7 +49,7 @@
             opacity: 0; /* Start invisible */
             transform: scale(0.8); /* Start scaled down */
             animation: fadeInScale 1s forwards; /* Fade and scale */
-            animation-delay: 1s; /* Delay for effect */
+            animation-delay: 1.5s; /* Delay for effect */
         }
         @keyframes fadeInUp {
             to {
@@ -72,6 +87,9 @@
 </head>
 <body>
     <h1>Apex Army</h1>
+    <p class="description">
+        Apex Army is a very sigma army filled with pros. If you join this server and follow all the rules, you will be a true sigma. Also, enjoy lots of giveaways in this server!
+    </p>
     <img src="https://cdn.discordapp.com/attachments/1290566730602647593/1290792393616134174/artworks-H7m7uBZoUUHRmDuw-GByeBw-t1080x1080.jpg?ex=66fdbf98&is=66fc6e18&hm=c8f4f68284b48f739308d79e4effe36f54564e5cf73854815a1c2374f757dd16" alt="Apex Army">
     <a href="https://discord.gg/dfmCh6pQ" class="discord-button">
         <i class="fab fa-discord"></i> Join Discord Server
