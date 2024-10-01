@@ -18,14 +18,35 @@
             background-color: #282c34;
             color: white;
             text-align: center;
+            overflow: hidden;
         }
         h1 {
             margin-bottom: 20px;
+            opacity: 0; /* Start invisible */
+            transform: translateY(-20px); /* Start slightly above */
+            animation: fadeInUp 1s forwards; /* Fade and move up */
+            animation-delay: 0.5s; /* Delay for effect */
         }
         img {
             max-width: 90%;
             height: auto;
             border-radius: 10px;
+            opacity: 0; /* Start invisible */
+            transform: scale(0.8); /* Start scaled down */
+            animation: fadeInScale 1s forwards; /* Fade and scale */
+            animation-delay: 1s; /* Delay for effect */
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1; /* Fully visible */
+                transform: translateY(0); /* Original position */
+            }
+        }
+        @keyframes fadeInScale {
+            to {
+                opacity: 1; /* Fully visible */
+                transform: scale(1); /* Original size */
+            }
         }
         .discord-button {
             display: flex;
@@ -39,12 +60,13 @@
             cursor: pointer;
             text-decoration: none;
             margin-top: 20px;
+            transition: background-color 0.3s ease; /* Smooth transition */
         }
         .discord-button i {
             margin-right: 10px;
         }
         .discord-button:hover {
-            background-color: #5b6eae;
+            background-color: #5b6eae; /* Change color on hover */
         }
     </style>
 </head>
